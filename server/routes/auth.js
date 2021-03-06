@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router()
-import conn from '../db.js'
+import conn from '../db-connection.js'
 import sha512 from 'js-sha512'
 import jwt from 'jsonwebtoken'
 

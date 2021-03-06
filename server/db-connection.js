@@ -6,7 +6,7 @@ const db = knex({
       host : 'localhost',
       user : 'postgres',
       password : '',
-      database : 'blog'
+      database : 'todo_app'
     }
 })
 
