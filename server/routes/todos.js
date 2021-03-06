@@ -2,14 +2,12 @@ import express from 'express'
 const router = express.Router()
 import conn from '../db-connection.js'
 
-router.get('/todos', (req, res) => {
-    const userId = req.params.userId
+router.get('/todos', async (req, res) => {
     const todos = await conn.raw(`
-    SELECT * FROM todos
+        SELECT * FROM todos;  
     `)
-    const rows=todos.rows
-    res.json(rows)
-    
+    const rows = todos.rows
+    res.json(rows)   
     // res.json({message:'testing todos routes'})
 })
 
@@ -26,3 +24,4 @@ export default router
     // SELECT * FROM todos
     // `)
     // res.json(todos)
+
