@@ -1,0 +1,8 @@
+# documentation... https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+GET http://localhost:3001/api/posts
+
+###
+
+POST http://localhost:3001/api/posts
+content-type: application/json
