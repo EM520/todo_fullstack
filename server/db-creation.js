@@ -5,7 +5,9 @@
 // password
 // salt
 import sha512 from 'js-sha512'
+
 import conn from './db-connection.js'
+
 import { createSalt } from './utils/auth.js'
 // NOTE this order does not matter if cascade deletion is set otherwise this is the order it'd need to be
 // due to foreign key reference issue during deletion
