@@ -34,11 +34,11 @@ export function LoginSignup() {
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="username"></label>
-                <Input id="username" type="text" value={form.username} className="input" onChange={setField} placeholder="Input username please" />
+                <Input id="username" type="text" value={form.username} className="input" name="username" onChange={setField} placeholder="Input username please" />
             </div>
             <div className="form-group">
                 <label htmlFor="password"></label>
-                <Input id="password" type="password" value={form.password} className="input" onChange={setField} placeholder="Input password please" />
+                <Input id="password" type="password" value={form.password} className="input" name="password" onChange={setField} placeholder="Input password please" />
             </div>
             <Button className="subBtn" type="primary" htmlType="submit">Submit</Button>
         </form>
