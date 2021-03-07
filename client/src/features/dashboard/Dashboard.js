@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import request from '../../utils/request'
 import { Tabs } from 'antd';
+
 import '../../App.css'
+
 
 const { TabPane } = Tabs;
 
