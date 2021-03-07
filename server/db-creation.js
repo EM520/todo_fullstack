@@ -35,6 +35,7 @@ async function main() {
         table.integer('user_id').unsigned()
         table.foreign('user_id').references('users.id')
     })
+    
     const salt = createSalt(20)
     await conn('users').insert({username: 'test', password: sha512('test' + salt), salt: salt})
     await conn('todos').insert({description: 'my todo', status: 'active', user_id: 1})

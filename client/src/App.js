@@ -16,10 +16,10 @@ function App() {
   return (
     <Router>
       <Switch>
-      <Route exact path="/">
+      {/* <Route exact path="/">
           <Farewell />
-        </Route>
-        <Route exact path="/login">
+        </Route> */}
+        <Route exact path="/">
           <LoginSignup />
         </Route>
         <AuthRoute path="/dashboard">

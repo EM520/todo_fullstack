@@ -1,6 +1,37 @@
+@import "~antd/dist/antd.css";
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+/* .tab{
+  background-color:red;
+  border: 2px solid blue;
 
+} */
+
+.card-container-login {
+  margin: 0 auto;
+  width: 40%;
+  height: 300px;
+  box-shadow: 10px 10px 10px rgb(179, 177, 177);
+  margin-top: 200px;
+  background-color: rgba(223, 229, 231, 0.945);
+}
+
+.form-group {
+  margin: 0 auto;
+  width: 60%;
+  height: 80px;
+  margin-top: 10px;
+}
+
+.input {
+  height: 50px;
+  margin-top: 15px;
+}
+.subBtn{
+  margin-left: 380px;
+  margin-top:10px;
+}
