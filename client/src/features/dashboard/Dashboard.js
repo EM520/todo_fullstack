@@ -18,7 +18,7 @@ export function Dashboard() {
             <div><button onClick={() => request.logout()}>logout</button></div>
         </TabPane>
         <TabPane tab="Search" key="2">
-            <p>Search By Description placeholder</p>
+            <p></p>
             <p>Description placeholder</p>
             <div><button onClick={() => request.logout()}>logout</button></div>
         </TabPane>
