@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom'
 import request from '../../utils/request'
 import useForm from '../../hooks/useForm'
 import { Input, Button, Tabs } from 'antd';
-import '../../App.css'
+
+import '../../App.css';
+
 
 const { TabPane } = Tabs;
 
@@ -28,22 +30,22 @@ export function LoginSignup() {
     }, [])
     return <div className="card-container-login">
     <Tabs type="card">
-    <TabPane tab="Login" key="1">
+    <TabPane   tab="Login" key="1">
     <Page>
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="username">username</label>
-                <Input id="username" type="text" value={form.username} name="username" onChange={setField} />
+                <label htmlFor="username"></label>
+                <Input id="username" type="text" value={form.username} className="input" name="username" onChange={setField} placeholder="Input username please" />
             </div>
             <div className="form-group">
-                <label htmlFor="password">password</label>
-                <Input id="password" type="password" value={form.password} name="password" onChange={setField} />
+                <label htmlFor="password"></label>
+                <Input id="password" type="password" value={form.password} className="input" name="password" onChange={setField} placeholder="Input password please" />
             </div>
-            <Button type="primary" htmlType="submit">Submit</Button>
+            <Button className="subBtn" type="primary" htmlType="submit">Submit</Button>
         </form>
     </Page>
     </TabPane>
-    <TabPane tab="Signup" key="2">
+    <TabPane  tab="Signup" key="2">
     <Page>
         <form onSubmit={handleSubmit}>
             <div className="form-group">

@@ -1,3 +1,4 @@
+
 import React, {useEffect,useState} from 'react';
 import '../../App.css';
 import ToDoList from './ToDoList';
@@ -22,7 +23,6 @@ function handleSubmit(e) {
     dispatch(addToDo(inputTodo));
     setInputTodo('')
 }
-
 
   return <div>
     <form className="toDoList" onSubmit={handleSubmit}>
