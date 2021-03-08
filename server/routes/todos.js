@@ -6,18 +6,23 @@ router.use(express.urlencoded({ extended: false }));
 
 
 // search request by description
-router.get("/todosearch/:userId", async (req, res) => {
+router.get("/todosearch/:userId/:desc", async (req, res) => {
+  console.log(req.params, 'body')
+  console.log(`"%${req.params.desc}%"`, req.params.userId , '100')
   const userId = req.params.userId;
-  const { description} = req.body;
+  const desc1 = req.params.desc;
+  // console.log(desc1,userId, 'all')
+  // const {description} = req.body;
   const todos = await conn.raw(`
         SELECT * FROM todos
-        WHERE description LIKE  ?
+        WHERE description LIKE ?
         AND user_id=?
     `,
-    [description,userId]
+    [desc1, userId]
     );
   const rows = todos.rows;
   res.json(rows)
+  console.log(rows)
 //   res.json({message:'testing todos search routes'});
  
 });
@@ -54,7 +59,7 @@ router.post("/todos/:userId", async (req, res) => {
 });
 
 // update Request
-router.patch("/todos", async (req, res) => {
+router.patch("/todosdescription", async (req, res) => {
     const userId = req.params.userId;
     const { id,description } = req.body;
     await conn.raw(`
@@ -70,6 +75,8 @@ router.patch("/todos", async (req, res) => {
 
   router.patch("/todos", async (req, res) => {
     const userId = req.params.userId;
+    console.log(req.body, 'body')
+
     const { id, status } = req.body;
     await conn.raw(`
           UPDATE todos
@@ -83,14 +90,15 @@ router.patch("/todos", async (req, res) => {
 
 
 //delete Request
-router.delete("/todos", async (req, res) => {
-    // const userId = req.params.userId;
-    const { id } = req.body;
+router.delete("/todos/:id", async (req, res) => {
+    const todoid = req.params.id;
+    console.log(req.params.id, 'pangit')
+    // const { id } = req.body;
     await conn.raw(`
           DELETE FROM todos
           WHERE id =?
           `,
-          [id]);
+          [todoid]);
     res.json({message:'Todos deleted'})
   });
 

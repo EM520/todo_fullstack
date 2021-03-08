@@ -33,6 +33,5 @@ function handleSubmit(e) {
         placeholder="Enter Your ToDo Here"/>
     </form> 
     <ToDoList todo={todos}/>
-    {/* {todos.map(todo => <ToDoList todo={todos} />)} */}
   </div>
 }
