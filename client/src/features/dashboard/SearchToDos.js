@@ -1,38 +1,42 @@
+import React, { useEffect, useState } from "react";
+import "../../App.css";
+import ToDoList from "./ToDoList";
+import { useSelector, useDispatch } from "react-redux";
+import { getSearchToDos, selectSearch } from "./todoSlice";
 
-import React, {useEffect,useState} from 'react';
-import '../../App.css';
-import ToDoList from './ToDoList';
-import {  useSelector, useDispatch } from "react-redux";
-import {getSearchToDos,selectSearch} from './todoSlice';
+export default function SearchToDos() {
+  const search = useSelector(selectSearch);
+  console.log(search, "s");
 
-export default  function SearchToDos() {
-const search = useSelector(selectSearch)
-console.log(search ,'s')
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSearchToDos(inputSearch));
+  }, []);
+  const [inputSearch, setInputSearch] = useState("");
 
-const dispatch = useDispatch()
-useEffect(() => {
-  dispatch(getSearchToDos(inputSearch))
-}, []);
-const [inputSearch, setInputSearch] = useState('');
-
-function handleSubmit(e) {
-  e.preventDefault()
+  function handleSubmit(e) {
+    e.preventDefault();
 
     // e.preventDefault();
-    console.log(inputSearch, search,'sea')
+    console.log(inputSearch, search, "sea");
     dispatch(getSearchToDos(inputSearch));
-    setInputSearch('')
+    setInputSearch("");
     
-}
+  }
 
-  return <div>
-    <form className="searchList" onSubmit={handleSubmit}>
-        <input type="text" className="todo-entry" 
-         onChange={(e) => setInputSearch(e.target.value)} 
-        value = {inputSearch}
-        placeholder="Enter Your Search Here"/>
-    </form> 
-    
-    <ToDoList todo={search}/>
-  </div>
+  return (
+    <div>
+      <form className="searchList" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="todo-entry"
+          onChange={(e) => setInputSearch(e.target.value)}
+          value={inputSearch}
+          placeholder="Enter Your Search Here"
+        />
+      </form>
+
+      <ToDoList todo={search} />
+    </div>
+  );
 }
