@@ -49,14 +49,14 @@ export function LoginSignup() {
     <Page>
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="username">username</label>
-                <Input id="username" type="text" value={form.username} name="username" onChange={setField} />
+                <label htmlFor="username"></label>
+                <Input id="username" type="text" value={form.username} className="input" name="username" onChange={setField} placeholder="Input username please"/>
             </div>
             <div className="form-group">
-                <label htmlFor="password">password</label>
-                <Input id="password" type="password" value={form.password} name="password" onChange={setField} />
+                <label htmlFor="password"></label>
+                <Input id="password" type="password" value={form.password} className="input" name="password" onChange={setField} placeholder="Input password please" />
             </div>
-            <Button type="primary" htmlType="submit">Submit</Button>
+            <Button className="subBtn" type="primary" htmlType="submit">Submit</Button>
         </form>
     </Page>
     </TabPane>
