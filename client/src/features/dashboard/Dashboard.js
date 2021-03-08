@@ -25,7 +25,7 @@ export function Dashboard() {
         </TabPane>
         </Tabs>
         <div>
-          <button nameClass="logout" onClick={() => request.logout()}>
+          <button className="logout" onClick={() => request.logout()}>
             logout
           </button>
         </div>
