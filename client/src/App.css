@@ -48,15 +48,25 @@
   border:2px solid rgb(250, 246, 246);
 }
 
-.inputTodo ,
-.todo-entry
+.todo-entry{
+  
+  width: 100%;
+  height: 40px;
+  outline: none;
+  text-indent: 10px;
+  border-radius: 5px;
+  border:2px solid rgb(250, 246, 246);
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.inputTodo 
 {
   width: 90%;
   height: 40px;
   outline: none;
   text-indent: 10px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 5px;
   border:2px solid rgb(250, 246, 246);
@@ -72,6 +82,7 @@
   border-radius: 5px;
   background-color:transparent;
   color: red;
+  outline: none;
 }
 
 .todoCompleted,
