@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState }from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { 
   deleteToDo,
@@ -7,12 +7,17 @@ import {
 
 } from './todoSlice'
 
-export default function ToDoList() {
+export default function ToDoList({todo}) {
+  console.log(todo, 't')
+  const [inputDescription, setInputDescription] = useState('');
+
+
   // const todos = useSelector(selectToDos);
 
   const dispatch = useDispatch();
 
   function handleUpdateStatus(id,status) {
+    console.log('update')
     dispatch(updateStatus(id,status));
   }
 
@@ -20,37 +25,49 @@ export default function ToDoList() {
     dispatch(updateDescription(id,desc));
   }
 
-
+  function removeToDo(obj) {
+    console.log('delete')
+    dispatch(deleteToDo(obj))
+    
+  }
   return (
-    <div className="todoListContainer">
-        <form>
+    todo.map((item)=> {
+      console.log(item, 'item')
+      return (
+    <div className="todoListContainer" key = {item.id}>
+      
+        
+    
+        <form onSubmit={handleUpdateDescription(item.id, inputDescription)}>
+          
             <input type="text"
-                    // onChange={}
-                    // value={}
-                    // className=""
+         onChange={(e) => setInputDescription(e.target.value)} 
+         value={item.description}
+                    className="descTodo"
             ></input>
         </form>
-        <div
+        <button
             className="todoCompleted"
-            onClick={() => handleUpdateStatus(item.id,'completed')}
+            onClick={() => handleUpdateStatus(item.id,"completed")}
         >
             Completed
-        </div>
-        <div
+        </button>
+        <button
             className="todoActive"
-            onClick={() => handleUpdateStatus(item.id, 'active')}
+            onClick={() => handleUpdateStatus(item.id, "active")}
         >
             Active
-        </div>
+        </button>
         <div>
         <button
               className="todoDeleteBtn"
-              onClick={() => {dispatch(deleteToDo(item))}}
+              onClick={() => {removeToDo(item.id)}}
             >
               X
             </button>
         </div>
 
-    </div>
+    </div> )
+    })  
   );
 }

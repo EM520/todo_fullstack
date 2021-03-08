@@ -7,12 +7,16 @@ export const todoSlice = createSlice({
     // inviteNotgoing: [],
     // inviteGoing: [],
     todos:[],
+    search: []
   },
   reducers: {
     setToDo: (state, action) => {
       state.todos = action.payload;
+      
+    },
+    setSearchToDo : (state, action) => {
+      state.todos = action.payload
     }
-
   }
 });
 
@@ -24,7 +28,7 @@ export const { setToDo } = todoSlice.actions;
 // code can then be executed and other actions can be dispatched
 
 export const getToDos = () => (dispatch) => {
-  axios.get("/todos").then((resp) => {
+  axios.get("api/todos/1").then((resp) => {
     console.log(resp.data, "data");
     dispatch(setToDo(resp.data));
   });
@@ -38,16 +42,22 @@ export const getToDos = () => (dispatch) => {
 // };
 
 export const addToDo = (todo) => (dispatch) => {
-  axios.post("/api/todos/:userId", {}).then((resp) => {
+  console.log(todo,'hi')
+  axios.post("/api/todos/1", {description:todo, status: "active", user_id: 1})
+  .then((resp) => {
     console.log(resp, "add ToDo");
+    dispatch(getToDos());
   });
 };
 
 
-export const deleteToDo = (id) => (dispatch) => {
-  axios.delete("/api/todos/:userId", )
+export const deleteToDo = (idNum) => (dispatch) => {
+  console.log(typeof idNum, idNum,'tan')
+  axios.delete("/api/todos", {id: idNum})
   .then((resp) => {
+    // console.log(resp, "delete")
     dispatch(getToDos());
+
 
   })
 
@@ -55,18 +65,41 @@ export const deleteToDo = (id) => (dispatch) => {
 
 export const updateDescription = (desc, id) => (dispatch) => {
   axios.patch('/api/todos/:userId')
+  .then((resp) => {
+    console.log(resp, "description")
+    dispatch(getToDos());
+
+
+  })
+  
 
 }
 export const updateStatus = (id, status) => (dispatch) => {
-  axios.patch('/api/todos/:userId')
+  console.log(id, status, 'status')
+  axios.patch('/api/todos',{id: id, status: status})
+  .then((resp) => {
+    console.log(resp, "status")
+    // dispatch(getToDos());
+
+
+  })
 
 }
 
-
+export const getSearchToDos = (desc) => (dispatch) => {
+  console.log(`"%${desc}%"`,'desc')
+  axios.get("api/todosearch/1", {description: `"%${desc}%"`})
+  .then((resp) => {
+    console.log(resp.data, "search");
+    dispatch(setToDo(resp.data));
+  });
+};
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.invite.value)`
 // export const selectNotGoing = (state) => state.invite.inviteNotgoing;
 // export const selectGoing = (state) => state.invite.inviteGoing;
 export const selectToDos = (state) => state.todo.todos;
+export const selectSearch = (state) => state.todo.search;
+
 export default todoSlice.reducer;
