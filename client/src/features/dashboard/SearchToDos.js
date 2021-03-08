@@ -11,17 +11,18 @@ console.log(search ,'s')
 
 const dispatch = useDispatch()
 useEffect(() => {
-  dispatch(getSearchToDos())
-}, [search]);
+  dispatch(getSearchToDos(inputSearch))
+}, []);
 const [inputSearch, setInputSearch] = useState('');
 
 function handleSubmit(e) {
   e.preventDefault()
 
     // e.preventDefault();
-    console.log(inputSearch,'search')
+    console.log(inputSearch, search,'sea')
     dispatch(getSearchToDos(inputSearch));
     setInputSearch('')
+    
 }
 
   return <div>
@@ -33,6 +34,5 @@ function handleSubmit(e) {
     </form> 
     
     <ToDoList todo={search}/>
-    {/* {todos.map(todo => <ToDoList todo={todos} />)} */}
   </div>
 }

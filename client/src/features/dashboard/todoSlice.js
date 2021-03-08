@@ -15,12 +15,12 @@ export const todoSlice = createSlice({
       
     },
     setSearchToDo : (state, action) => {
-      state.todos = action.payload
+      state.search = action.payload
     }
   }
 });
 
-export const { setToDo } = todoSlice.actions;
+export const { setToDo, setSearchToDo } = todoSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -53,9 +53,9 @@ export const addToDo = (todo) => (dispatch) => {
 
 export const deleteToDo = (idNum) => (dispatch) => {
   console.log(typeof idNum, idNum,'tan')
-  axios.delete("/api/todos", {id: idNum})
+  axios.delete("/api/todos/"+ idNum )
   .then((resp) => {
-    // console.log(resp, "delete")
+    console.log(resp, "delete")
     dispatch(getToDos());
 
 
@@ -88,10 +88,10 @@ export const updateStatus = (id, status) => (dispatch) => {
 
 export const getSearchToDos = (desc) => (dispatch) => {
   console.log(`"%${desc}%"`,'desc')
-  axios.get("api/todosearch/1", {description: `"%${desc}%"`})
+  axios.get("api/todosearch/1/"+desc, {description: desc})
   .then((resp) => {
     console.log(resp.data, "search");
-    dispatch(setToDo(resp.data));
+    dispatch(setSearchToDo(resp.data));
   });
 };
 // The function below is called a selector and allows us to select a value from
