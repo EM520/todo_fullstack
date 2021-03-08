@@ -30,7 +30,7 @@ function handleSubmit(e) {
         <input type="text" className="todo-entry" 
          onChange={(e) => setInputSearch(e.target.value)} 
         value = {inputSearch}
-        placeholder="Enter Your ToDo Here"/>
+        placeholder="Enter Your Search Here"/>
     </form> 
     
     <ToDoList todo={search}/>
