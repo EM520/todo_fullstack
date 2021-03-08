@@ -4,6 +4,7 @@ import { Tabs } from "antd";
 import "../../App.css";
 import ManageToDos from "./ManageToDos";
 import SearchToDos from "./SearchToDos";
+import logoutUser from "../../auth/auth"
 
 const { TabPane } = Tabs;
 
@@ -25,7 +26,7 @@ export function Dashboard() {
         </TabPane>
         </Tabs>
         <div>
-          <button className="logout" onClick={() => request.logout()}>
+          <button className="logout" onClick={() => request.logoutUser()}>
             logout
           </button>
         </div>

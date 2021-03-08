@@ -40,7 +40,7 @@ function loginUser(username, password) {
     }
 }
 
-function logoutUser() {
+export function logoutUser() {
     return dispatch => {
         return request.logout().then(resp => {
             dispatch({

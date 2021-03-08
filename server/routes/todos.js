@@ -27,13 +27,13 @@ router.get("/todosearch/:userId/:desc", async (req, res) => {
  
 });
 
-//Read and get request by user_id
-router.get("/todos/:userId", async (req, res) => {
-    const userId = req.params.userId;
+// Search Todos by description
+//Read and get Todos  by user_id
+router.get("/todos", async (req, res) => {
+    const userId = req.user.id;
     const todos = await conn.raw(`
           SELECT * 
           FROM todos
-         
           WHERE user_id=?    
       `,
       [userId]
@@ -44,61 +44,54 @@ router.get("/todos/:userId", async (req, res) => {
     // res.json({message:'testing todos routes'})
   });
 
-// Add request body
-router.post("/todos/:userId", async (req, res) => {
-  const { description, status,user_id } = req.body;
+// Create new Todos
+router.post("/todos", async (req, res) => {
+  const userId = req.user.id;
+  const { description} = req.body;
   await conn.raw(
     `
         INSERT INTO todos (description, status,user_id)
         VALUES( ?,?,?)
     `,
-    [description, status,user_id]
+    [description,"active",userId]
   );
   res.json({ message: "Todos added" });
 //   res.json({message:'testing todos added'})
 });
 
 // update Request
-router.patch("/todosdescription", async (req, res) => {
-    const userId = req.params.userId;
-    const { id,description } = req.body;
-    await conn.raw(`
-          UPDATE todos
-          SET  description=?
-          WHERE id =?
-          `,
-          [description,id]
-          );
-    res.json({message:'Todos  description updated'})
+// router.patch("/todosdescription", async (req, res) => {
+//     const userId = req.params.userId;
+//     const { id,description } = req.body;
+//     await conn.raw(`
+//           UPDATE todos
+//           SET  description=?
+//           WHERE id =?
+//           `,
+//           [description,id]
+//           );
+//     res.json({message:'Todos  description updated'})
+//   });
+
+// Update Todos
+  router.patch("/todos/:todoId", async (req, res) => {
+    const todoId = req.params.todoId;
+    await conn('todo')
+        .where({id:todoId})
+        .update(req.body)       
+    res.json({message:'Todos updated'})
   });
 
 
-  router.patch("/todos", async (req, res) => {
-    const userId = req.params.userId;
-    console.log(req.body, 'body')
-
-    const { id, status } = req.body;
-    await conn.raw(`
-          UPDATE todos
-          SET status=? 
-          WHERE id =?
-          `,
-          [ status,id]
-          );
-    res.json({message:'Todos status updated'})
-  });
-
-
-//delete Request
-router.delete("/todos/:id", async (req, res) => {
-    const todoid = req.params.id;
-    console.log(req.params.id, 'pangit')
-    // const { id } = req.body;
+//Backend Delete Todos
+router.delete("/todos/:todoId", async (req, res) => {
+    const todoId = req.params.todoId;
+    
     await conn.raw(`
           DELETE FROM todos
-          WHERE id =?
+          WHERE id =? 
           `,
-          [todoid]);
+          [todoId]);
     res.json({message:'Todos deleted'})
   });
 
