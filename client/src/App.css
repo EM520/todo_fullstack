@@ -31,8 +31,6 @@
   margin-top: 10px;
 }
 
-
-
 .todoListContainer {
   display: flex;
   width: 200px;
@@ -43,25 +41,20 @@
   height: 35px;
   width: 350px;
   border: 1px solid black;
-  
 }
 .inputTodo {
   width: 350px;
   height: 35px;
   outline: none;
   text-indent: 10px;
-
 }
 .todoDeleteBtn {
   cursor: pointer;
-
 }
-.todoComplete, .todoActive {
+.todoComplete,
+.todoActive {
   cursor: pointer;
-
 }
-
-
 
 .input {
   height: 50px;
@@ -72,7 +65,6 @@
   margin-top: 10px;
 }
 
-<<<<<<< HEAD
 .card-container-dashboard {
   margin: 0 auto;
   width: 60%;
@@ -82,12 +74,8 @@
   background-color: rgba(223, 229, 231, 0.945);
 }
 
-.dashboardCard{
+.dashboardCard {
   margin: 0 auto;
   width: 90%;
   height: 400px;
 }
-=======
-}
-
->>>>>>> 88e7834eaa1a2dce20930056d54055b4ed350fd6
