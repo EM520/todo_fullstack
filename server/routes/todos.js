@@ -6,7 +6,7 @@ router.use(express.urlencoded({ extended: false }));
 
 
 // search request by description
-router.patch("/todosearch/:userId", async (req, res) => {
+router.get("/todosearch/:userId", async (req, res) => {
   const userId = req.params.userId;
   const { description} = req.body;
   const todos = await conn.raw(`
@@ -53,29 +53,44 @@ router.post("/todos/:userId", async (req, res) => {
 //   res.json({message:'testing todos added'})
 });
 
-//update Request
-router.patch("/todos/:userId", async (req, res) => {
+// update Request
+router.patch("/todos", async (req, res) => {
     const userId = req.params.userId;
-    const { id,description, status } = req.body;
+    const { id,description } = req.body;
     await conn.raw(`
           UPDATE todos
-          SET id=?, description=?,status=? 
-          WHERE user_id =?
+          SET  description=?
+          WHERE id =?
           `,
-          [id,description, status,userId]
+          [description,id]
           );
-    res.json({message:'Todos updated'})
+    res.json({message:'Todos  description updated'})
   });
 
-//delete Request
-router.delete("/todos/:userId", async (req, res) => {
+
+  router.patch("/todos", async (req, res) => {
     const userId = req.params.userId;
+    const { id, status } = req.body;
+    await conn.raw(`
+          UPDATE todos
+          SET status=? 
+          WHERE id =?
+          `,
+          [ status,id]
+          );
+    res.json({message:'Todos status updated'})
+  });
+
+
+//delete Request
+router.delete("/todos", async (req, res) => {
+    // const userId = req.params.userId;
     const { id } = req.body;
     await conn.raw(`
           DELETE FROM todos
-          WHERE id =? AND user_id=?
+          WHERE id =?
           `,
-          [id,userId]);
+          [id]);
     res.json({message:'Todos deleted'})
   });
 
