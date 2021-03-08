@@ -13,6 +13,7 @@ export function LoginSignup() {
     const [form, setField] = useForm({username: '', password: ''})
     function handleSubmit(e) {
         e.preventDefault()
+        console.log(form, 'form')
         const { username, password } = form
         request.login(username, password)
         .then(resp => {
