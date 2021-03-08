@@ -6,18 +6,17 @@ export const todoSlice = createSlice({
   initialState: {
     // inviteNotgoing: [],
     // inviteGoing: [],
-    todos:[],
-    search: []
+    todos: [],
+    search: [],
   },
   reducers: {
     setToDo: (state, action) => {
       state.todos = action.payload;
-      
     },
-    setSearchToDo : (state, action) => {
-      state.search = action.payload
-    }
-  }
+    setSearchToDo: (state, action) => {
+      state.search = action.payload;
+    },
+  },
 });
 
 export const { setToDo, setSearchToDo } = todoSlice.actions;
@@ -42,54 +41,41 @@ export const getToDos = () => (dispatch) => {
 // };
 
 export const addToDo = (todo) => (dispatch) => {
-  console.log(todo,'hi')
-  axios.post("/api/todos/1", {description:todo, status: "active", user_id: 1})
-  .then((resp) => {
-    console.log(resp, "add ToDo");
+  console.log(todo, "hi");
+  axios
+    .post("/api/todos/1", { description: todo, status: "active", user_id: 1 })
+    .then((resp) => {
+      console.log(resp, "add ToDo");
+      dispatch(getToDos());
+    });
+};
+
+export const deleteToDo = (idNum) => (dispatch) => {
+  console.log(typeof idNum, idNum, "tan");
+  axios.delete("/api/todos/" + idNum).then((resp) => {
+    console.log(resp, "delete");
     dispatch(getToDos());
+    dispatch(getSearchToDos());
   });
 };
 
-
-export const deleteToDo = (idNum) => (dispatch) => {
-  console.log(typeof idNum, idNum,'tan')
-  axios.delete("/api/todos/"+ idNum )
-  .then((resp) => {
-    console.log(resp, "delete")
-    dispatch(getToDos());
-
-
-  })
-
-}
-
 export const updateDescription = (desc, id) => (dispatch) => {
-  axios.patch('/api/todos/:userId')
-  .then((resp) => {
-    console.log(resp, "description")
+  axios.patch("/api/todos/:userId").then((resp) => {
+    console.log(resp, "description");
     dispatch(getToDos());
-
-
-  })
-  
-
-}
+  });
+};
 export const updateStatus = (id, status) => (dispatch) => {
-  console.log(id, status, 'status')
-  axios.patch('/api/todos',{id: id, status: status})
-  .then((resp) => {
-    console.log(resp, "status")
+  console.log(id, status, "status");
+  axios.patch("/api/todos", { id: id, status: status }).then((resp) => {
+    console.log(resp, "status");
     // dispatch(getToDos());
-
-
-  })
-
-}
+  });
+};
 
 export const getSearchToDos = (desc) => (dispatch) => {
-  console.log(`"%${desc}%"`,'desc')
-  axios.get("api/todosearch/1/"+desc, {description: desc})
-  .then((resp) => {
+  console.log(`"%${desc}%"`, "desc");
+  axios.get("api/todosearch/1/" + desc, { description: desc }).then((resp) => {
     console.log(resp.data, "search");
     dispatch(setSearchToDo(resp.data));
   });
