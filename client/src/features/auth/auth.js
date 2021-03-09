@@ -68,6 +68,8 @@ export function useAuth() {
   const signup = (username, password) => dispatch(signupUser(username, password))
   const logout = () => dispatch(logoutUser())
   const testProtected = () => request.get('/dashboard')
+// const userToken =localStorage.getItem('authToken').split('.')[1]
+  
 
   return { login, logout, signup, isAuthenticated, testProtected }
 }

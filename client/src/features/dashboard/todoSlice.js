@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import request from "../../utils/request";
 
 export const todoSlice = createSlice({
   name: "todo",
@@ -11,6 +12,7 @@ export const todoSlice = createSlice({
   },
   reducers: {
     setToDo: (state, action) => {
+      console.log(action.payload);
       state.todos = action.payload;
     },
     setSearchToDo: (state, action) => {
@@ -27,8 +29,8 @@ export const { setToDo, setSearchToDo } = todoSlice.actions;
 // code can then be executed and other actions can be dispatched
 
 export const getToDos = () => (dispatch) => {
-  axios.get("api/todos/1").then((resp) => {
-    console.log(resp.data, "data");
+  request.get("/todos").then((resp) => {
+    console.log(resp.data, "gettodo");
     dispatch(setToDo(resp.data));
   });
 };
@@ -42,12 +44,10 @@ export const getToDos = () => (dispatch) => {
 
 export const addToDo = (todo) => (dispatch) => {
   console.log(todo, "hi");
-  axios
-    .post("/api/todos/1", { description: todo, status: "active", user_id: 1 })
-    .then((resp) => {
-      console.log(resp, "add ToDo");
-      dispatch(getToDos());
-    });
+  request.post("/todos", { description: todo }).then((resp) => {
+    console.log(resp, "add ToDo");
+    dispatch(getToDos());
+  });
 };
 
 export const deleteToDo = (idNum) => (dispatch) => {
@@ -55,31 +55,38 @@ export const deleteToDo = (idNum) => (dispatch) => {
   axios.delete("/api/todos/" + idNum).then((resp) => {
     console.log(resp, "delete");
     dispatch(getToDos());
-    dispatch(getSearchToDos());
+    // dispatch(updateTodos());
   });
 };
 
-export const updateDescription = (desc, id) => (dispatch) => {
-  axios.patch("/api/todos/:userId").then((resp) => {
+export const getSearch = () => (dispatch) => {
+  request.get("/todos").then((resp) => {
+    console.log(resp.data, "search");
+    dispatch(setSearchToDo(resp.data));
+  });
+};
+
+export const updateDescription = (id, description) => (dispatch) => {
+  axios.patch("/api/todos/" + id, { description: description }).then((resp) => {
     console.log(resp, "description");
     dispatch(getToDos());
   });
 };
 export const updateStatus = (id, status) => (dispatch) => {
-  console.log(id, status, "status");
-  axios.patch("/api/todos", { id: id, status: status }).then((resp) => {
+  console.log(id, status, "idc");
+  axios.patch("/api/todos/" + id, { status: status }).then((resp) => {
     console.log(resp, "status");
-    // dispatch(getToDos());
+    dispatch(getToDos());
   });
 };
 
-export const getSearchToDos = (desc) => (dispatch) => {
-  console.log(`"%${desc}%"`, "desc");
-  axios.get("api/todosearch/1/" + desc, { description: desc }).then((resp) => {
-    console.log(resp.data, "search");
-    dispatch(setSearchToDo(resp.data));
-  });
-};
+// export const getSearchToDos = (desc) => (dispatch) => {
+//   // console.log(`"%${desc}%"`, "desc");
+//   request.get("api/todos", { description: desc }).then((resp) => {
+//     console.log(resp.data, "search");
+//     dispatch(setSearchToDo(resp.data));
+//   });
+// };
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.invite.value)`
