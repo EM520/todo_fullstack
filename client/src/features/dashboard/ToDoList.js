@@ -17,7 +17,7 @@ function Description({ id, description }) {
   return (
     <div>
       {canEdit ? (
-        <form onSubmit={handleUpdate(id, description, emptyString)}>
+        <form onSubmit={() => handleUpdate(id, description, emptyString)}>
           <input
             type="text"
             onChange={(e) => setInputDescription(e.target.value)}
