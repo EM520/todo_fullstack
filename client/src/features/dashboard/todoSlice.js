@@ -80,6 +80,15 @@ export const updateStatus = (id, status) => (dispatch) => {
   });
 };
 
+export const getSearchToDos = (desc) => (dispatch) => {
+  // console.log(`"%${desc}%"`, "desc");
+  request.get("/todos", { description: desc })
+  .then((resp) => {
+    console.log(resp.data, "search");
+    dispatch(setSearchToDo(resp.data));
+  });
+};
+
 // export const getSearchToDos = (desc) => (dispatch) => {
 //   // console.log(`"%${desc}%"`, "desc");
 //   request.get("api/todos", { description: desc }).then((resp) => {

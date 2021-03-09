@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import "../../App.css";
 import ToDoList from "./ToDoList";
 import { useSelector, useDispatch } from "react-redux";
-import { getSearch, selectSearch } from "./todoSlice";
+import { getSearchToDos, selectSearch } from "./todoSlice";
 import { Empty } from "antd";
 
 export default function SearchToDos({ todos }) {
   const search = useSelector(selectSearch);
-  console.log(search, "s");
+  console.log(search.length, "s");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getSearch(inputSearch));
+    dispatch(getSearchToDos(inputSearch));
   }, []);
   const [inputSearch, setInputSearch] = useState("");
 
@@ -23,7 +23,7 @@ export default function SearchToDos({ todos }) {
     setInputSearch("");
   }
 
-  return search != Empty ? (
+  return (
     <div>
       <form className="searchList" onSubmit={handleSubmit}>
         <input
@@ -37,8 +37,9 @@ export default function SearchToDos({ todos }) {
       {/* {todos.map((todos) => (
         <ToDoList todos={todos} />
       ))} */}
+            {/* { search.length !== 0 ? (
 
-      {/* <ToDoList todos={todos} /> */}
+        <ToDoList todos={todos} /> ) : null } */}
     </div>
-  ) : null;
+  )
 }
